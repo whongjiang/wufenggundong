@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      vertical-align: top;
+    }
+
+    /*取消图片底部3像素距离*/
+    .box {
+      width: 300px;
+      height: 200px;
+      margin: 100px auto;
+      background-color: pink;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box ul li {
+      float: left;
+    }
+
+    .box ul {
+      width: 1500px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="box" id="screen">
+  <ul>
+    <li><img src="images/1.jpg" alt=""/></li>
+    <li><img src="images/2.jpg" alt=""/></li>
+    <li><img src="images/3.jpg" alt=""/></li>
+    <li><img src="images/1.jpg" alt=""/></li>
+  </ul>
+</div>
+</body>
+<script>
+var  screen=document.getElementById("screen");
+var  timer=null;
+screen.onmouseover=function () {
+  clearInterval(timer);
+}                         //当鼠标移动到盒子时清除时间定时器
+
+screen.onmouseout=function () {
+  timer = setInterval(autoplay, 15);
+}                                       //当鼠标离开screen时启动timer定时器
+
+function autoplay() {           //这是一个自动执行的函数，当鼠标离开screen时timer定时器每隔15毫秒执行一次该函数。
+  var ul=screen.children[0];
+  var leader = ul.offsetLeft;
+  var step = -3;
+  if (leader > -900) {    //三张图片总宽900px，往左移动为负，
+    leader = leader + step;
+    ul.style.left = leader + "px";
+  } else {                  //当三张图片（都在ul中）移动完毕，让ul位置归零，这样又可以继续循环移动了
+    ul.style.left = 0;
+  }
+}
+
+
+
+
+</script>
+</html>
